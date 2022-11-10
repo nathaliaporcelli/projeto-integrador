@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block main %}
+<div class="container">
+
+    <h3>Cadastro de Escotistas</h3>
+
+    <div class="row">
+        <div class="col-4">
+            <b>Escoteiro ID:</b>{{ data1.id }}
+        </div>
+        <div class="col-4">
+            <b>Número de registro:</b> {{ data1.number_register }}
+        </div>
+        <div class="col-4">
+            <b>Seção:</b> {{ data1.section }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <b>Primeira função:</b> {{ data1.function_first }}
+        </div>
+        <div class="col-4">
+            <b>Segunda função:</b> {{ data1.function_second }}
+        </div>
+    </div>
+    <hr>
+    {% bootstrap_messages %}
+
+    <form action="{% url 'cad_esc_p2' data1.id %}" method="post" class="form" autocomplete="off"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% bootstrap_form form %}
+        <hr>
+        {% buttons %}
+        {% if pca == True %}
+        <div class="btn-group" role="group">
+            <button type="submit" class="btn btn-primary">Salvar e continuar</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Cadastrar e continuar</button>
+            {% endif %}
+            {% endbuttons %}
+        </div>
+    </form>
+    <form action="{% url 'cad_esc_p2' data1.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="apenas_continuar" class="btn btn-primary" value="Continuar sem alterar">
+    </form>
+    <br>
+    <form action="{% url 'cad_esc_p2' data1.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="delete_associate_data" class="btn btn-primary"
+            value="Apagar todos os meus dados deste site">
+    </form>
+    <br>
+    <input type=button class="btn btn-primary" value="Voltar" onClick="javascript:history.go(-1);">
+    <br><br>
+</div>
+{% bootstrap_javascript jquery='full' %}
+<br><br><br>
+{% endblock %}

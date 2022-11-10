@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-5">
+            <b>Nº registro:</b>{{ data1.number_register }}
+        </div>
+        <div class="col-3">
+            <b>Primeira função:</b> {{ data1.function_first }}
+
+        </div>
+        <div class="col-4">
+            <b>Seção:</b> {{ data1.section }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <b>Nome do Escoteiro:</b> {{ data2.name }}
+        </div>
+        <div class="col-3">
+            <b>Telefone:</b> {{ data2.phone }}
+        </div>
+        <div class="col-4">
+            <b>E-mail:</b> {{ data2.email }}
+        </div>
+    </div>
+    <hr>
+
+    <h3>Competências - Associados ao Escoteiro</h3>
+
+    {% bootstrap_messages %}
+
+    <form action="{% url 'cadastro_atividade' data2.id %}" method="post" class="form" autocomplete="off"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        {% endbuttons %}
+    </form>
+
+
+    <h2>Lista de competências e habilidades cadastradas</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Número de Registro</th>
+                <th scope="col">Nome da Competência/Habilidade</th>
+                <th scope="col">Tipo de Competência/Habilidade</th>
+                <th scope="col">Nome da pessoa</th>
+                <th scope="col">Tipo de associação com o escoteiro</th>
+                <th scope="col">Anotações</th>
+                <th scope="col">Apagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for skill in data3 %}
+            <tr>
+                <td scope="row">{{ skill.id }}</td>
+                <td scope="row">{{ skill.number_register }}</td>
+                <td scope="row">{{ skill.name_skill }}</td>
+                <td scope="row">{{ skill.type_skill }}</td>
+                <td scope="row">{{ skill.name_person }}</td>
+                <td scope="row">{{ skill.type_person }}</td>
+                <td scope="row">{{ skill.notes }}</td>
+                <td scope="row">
+
+                    <form action="{% url 'cadastro_atividade' data2.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" name="delete_skill" class="btn btn-danger"
+                            value="{{ skill.id }}">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+    <br>
+    <input type=button value="Voltar" class="btn btn-primary" onClick="javascript:history.go(-1);">
+</div>
+{% bootstrap_javascript jquery='full' %}
+{% endblock %}

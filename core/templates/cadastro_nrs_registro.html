@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+{% block content %}
+<div>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h3>Cadastro de Números de Registro via Excel</h3>
+            <p>Instruções:</p>
+            <p></p>1 - Criar arquivo de excel 'xlsx'</p>
+            <p>2 - Dados na aba 'nrs_registro'</p>
+            <p>3 - Colunas: 'number_register (não esquecer o dígito)', 'name', 'section', 'e-mail',
+              'phone', 'delete'</p>
+            <p>4 - Para apagar, digite 'x' na coluna delete - Atenção, isso apagará dados do escoteiro e
+              habilidades/competências associadas</p>
+            <a href="{% static 'files/Template_upload_nrs_registros_novo.xlsx' %}">Baixar planilha </a>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="col-md-8 col-sm-12 col-xs-12 form-group">
+              </label>
+            </div>
+            <div class="row">
+              <div class="col-md-8"><input type="file" name="myfile" class="form-control" accept=".xlsx"><br>
+              </div>
+              <div class="col">
+
+                <button type="submit" class="btn btn-primary">Upload</button><br>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% if upload == True %}
+<br>
+<p>Quantidade de itens cadastrados: {{ qtd_cad }}</p>
+<p>Quantidade de itens não cadastrados: {{ qtd_n_cad }}</p>
+<p>Quantidade de itens apagados: {{ deletados }}</p>
+<br>
+{% endif %}
+{% endblock %}}
