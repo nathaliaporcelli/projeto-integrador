@@ -11,4 +11,4 @@ ENTRYPOINT [ "sh", "/entrypoint.sh" ]
 
 
 #CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "django_pi_v2.wsgi:application"]
-CMD ["gunicorn","-b", "127.0.0.1:8000", "django_pi_v2.wsgi:application", "-w9", "-p /tmp/gunicorn_pi.pid"]
+#CMD ["gunicorn","-b", "127.0.0.1:8000", "django_pi_v2.wsgi:application", "-w9", "-p /tmp/gunicorn_pi.pid"]
