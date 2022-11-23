@@ -34,7 +34,7 @@ jobs:
         
        #comppose 
       - name: DockerCompose
-        run:  docker-compose -d up --build 
+        run:  docker-compose up --build -d
         # build image
       - name: Build Docker image
         run: docker build -t $IMAGE_NAME .
