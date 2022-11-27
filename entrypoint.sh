@@ -8,4 +8,5 @@ python3 manage.py collectstatic
 #python manage.py createsuperuser --noinput
 #./manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL --password $DJANGO_SUPERUSER_PASSWORD
 
-gunicorn django_pi_v2.wsgi:application --bind 0.0.0.0:8000
+##gunicorn django_pi_v2.wsgi:application --bind 0.0.0.0:8000
+gunicorn django_pi_v2.wsgi:application --env DJANGO_SETTINGS_MODULE='django_pi_v2.settings'--bind 0.0.0.0:8000
