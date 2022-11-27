@@ -31,6 +31,15 @@ jobs:
         run: |
          python -m pip install --upgrade pip
          pip install -r requirements.txt
+        #secret
+        - uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          DJANGO_SUPER_USER_EMAIL: ${{ secrets.DJANGO_SUPER_USER_EMAIL }}
+          DJANGO_SUPER_USER_NAME: ${{ secrets.DJANGO_SUPER_USER_NAME }}
+          DJANGO_SUPER_USER_PASSWORD: ${{ secrets.DJANGO_SUPER_USER_PASSWORD }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: ${{ secrets.DEBUG }}
+          
         
        #comppose 
       - name: Docker Compose
