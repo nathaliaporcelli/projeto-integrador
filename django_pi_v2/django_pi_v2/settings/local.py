@@ -23,9 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'django-insecure-_r=7v(%21be30#9-luv^#!n_8!o^)2t30+(f(u-)z65x@e7y84'
 SECRET_KEY =os.getenv('SECRET_KEY')
 DEBUG =os.getenv('DEBUG')
-DJANGO_SUPER_USER_PASSWORD =os.getenv('DJANGO_SUPER_USER_PASSWORD')
-DJANGO_SUPER_USER_NAME =os.getenv('DJANGO_SUPER_USER_NAME')
-DJANGO_SUPER_USER_EMAIL=os.getenv('DJANGO_SUPER_USER_EMAIL')
+
 
 ALLOWED_HOSTS = ['*']
 
