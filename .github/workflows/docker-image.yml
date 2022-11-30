@@ -25,7 +25,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app:latest
-steps:
+    steps:
       # Git checkout
       - name: Checkout        
 
