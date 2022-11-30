@@ -24,10 +24,11 @@ jobs:
           version: "290.0.1"
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+
     
-    steps:
+    #steps:
       # Git checkout
-      - name: Checkout        
+     # - name: Checkout        
 
       # Login to GCP
       - uses: google-github-actions/setup-gcloud@v0.2.0
