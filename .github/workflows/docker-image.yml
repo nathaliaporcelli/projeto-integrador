@@ -6,9 +6,9 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-       APP_ID: app
-       RUN_REGION: us-central1 
-       SA_KEY_JSON: ${{ secrets.GCP_CREDENTIALS }}
+    APP_ID: app
+    RUN_REGION: us-central1 
+    SA_KEY_JSON: ${{ secrets.GCP_CREDENTIALS }}
 
 jobs:
   deploy:
