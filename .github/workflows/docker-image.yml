@@ -31,10 +31,10 @@ jobs:
      # - name: Checkout        
 
       # Login to GCP
-      - uses: google-github-actions/setup-gcloud@v0.2.0
-        with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+     # - uses: google-github-actions/setup-gcloud@v0.2.0
+      #  with:
+        #  service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+        #  project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       # gcloud configure docker
       - name: Configure Docker
@@ -52,7 +52,7 @@ jobs:
         run:  docker-compose up --build -d
         # build image
       - name: Build Docker image
-        run: docker build -t $IMAGE_NAME .
+        run: docker build $IMAGE_NAME .
 
       # push image to registry
       - name: Push Docker image
