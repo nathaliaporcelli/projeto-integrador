@@ -52,7 +52,7 @@ jobs:
         run:  docker-compose up --build -d
         # build image
       - name: Build Docker image
-        run: docker build -f app $IMAGE_NAME .
+        run: docker build -f $IMAGE_NAME .
 
       # push image to registry
       - name: Push Docker image
