@@ -9,7 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.HEROKU_API_KEY }}
   APP_ID: app
   RUN_REGION: us-central1 
-  IMAGE_NAME: ${{ secrets.HEROKU_API_KEY }}/app:latest
+  IMAGE_NAME: django_pi_v2/app:latest
 jobs:
   build:
     runs-on: ubuntu-latest
