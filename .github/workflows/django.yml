@@ -30,7 +30,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-       ./django_pi_v2 python manage.py test
+       python manage.py ./django_pi_v2/test
      
     - name: Docker Compose
       run:  docker-compose up --build -d
