@@ -45,7 +45,19 @@ jobs:
       - name: Push Docker image
         run: docker push $IMAGE_NAME
 
-      # deploy image
-      - name: Deploy Docker image
-        run: gcloud run deploy app --image $IMAGE_NAME --region us-central1 --memory 128Mi --min-instances 0 --max-instances 1 --platform managed --port 8000 --allow-unauthenticated
-modulos · nathaliaporcelli/projeto-integrador@7c44938 
+       deploy: 
+    needs: build
+    runs-on: ubuntu-latest
+      - uses: actions/checkout@v2
+      - name: Login to Heroku container registry
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:login
+      - name: Build and Push
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:push -a $IMAGE_NAME .
+      - name: release 
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:release -a $IMAGE_NAME .
