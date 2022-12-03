@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag django:$(date +%s)
+      run: docker build . --file docker-compose --tag django:$(date +%s)
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
