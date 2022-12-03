@@ -34,7 +34,7 @@ jobs:
       run:  docker-compose up --build -d
         # build image
     - name: Build Docker image
-      run: docker build -f $IMAGE_NAME .
+      run: docker build -f image-docker .
   deploy: 
     needs: build
     runs-on: ubuntu-latest
@@ -47,8 +47,8 @@ jobs:
       - name: Build and Push
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:push -a $IMAGE_NAME .
+        run: heroku container:push -a image-docker .
       - name: release 
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:release -a $IMAGE_NAME .
+        run: heroku container:release -a image-docker .
