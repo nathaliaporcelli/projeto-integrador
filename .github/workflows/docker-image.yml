@@ -12,7 +12,6 @@ jobs:
     env:
     HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
     IMAGE_NAME: imagem-docker
-    steps:
       # Git checkout
       - name: Checkout
         uses: actions/checkout@v2
