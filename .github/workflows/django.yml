@@ -5,7 +5,11 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+env:
+  PROJECT_ID: ${{ secrets.HEROKU_API_KEY }}
+  APP_ID: app
+  RUN_REGION: us-central1 
+  IMAGE_NAME: ${{ secrets.HEROKU_API_KEY }}/app:latest
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,8 +49,8 @@ jobs:
       - name: Build and Push
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:push -a ${{secrets.PI-V3}}web
+        run: heroku container:push -a ${{secrets.$IMAGE_NAME}}web
       - name: release 
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:release -a ${{secrets.PI-V3}} web
+        run: heroku container:release -a ${{secrets.$IMAGE_NAME}} web
