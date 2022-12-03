@@ -16,3 +16,39 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag django:$(date +%s)
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+       python manage.py ./django_pi_v2/test
+     
+    - name: Docker Compose
+      run:  docker-compose up --build -d
+        # build image
+    - name: Build Docker image
+      run: docker build -f ./$IMAGE_NAME .
+  deploy: 
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Heroku container registry
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:login
+      - name: Build and Push
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:push -a $IMAGE_NAME .
+      - name: release 
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:release -a $IMAGE_NAME .
