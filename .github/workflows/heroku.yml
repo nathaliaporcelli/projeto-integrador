@@ -16,9 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker-django:$(date +%s)
+   # - uses: actions/checkout@v3
+    
+    #- name: Build the Docker image
+    #  run: docker build . --file Dockerfile --tag docker-django:$(date +%s)
 
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
