@@ -47,8 +47,8 @@ jobs:
       - name: Build and Push
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:push -a .
+        run: heroku container:push web
       - name: release 
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:release -a  . 
+        run: heroku container:release web
