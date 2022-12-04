@@ -51,13 +51,13 @@ jobs:
       - name: Build and Push
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:push web --app app
+        run: heroku container:push web --app
         #web registry.heroku.com/pi-v3
         
       - name: release 
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-        run: heroku container:release web --app app
+        run: heroku container:release web --app
         #heroku container:release  web --app application-name
 
       #  docker push registry.heroku.com/appname/web
