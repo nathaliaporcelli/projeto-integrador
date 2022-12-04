@@ -28,7 +28,7 @@ jobs:
         run:  docker-compose up --build -d
         # build image
       - name: Build Docker image
-        run: docker build -t img-docker
+        run: docker build .
 
       # push image to registry
       - name: Push Docker image
