@@ -37,10 +37,10 @@ jobs:
   deploy: 
     needs: build
     runs-on: ubuntu-latest
+    environment: pi-prod-gcp
     steps:
       - uses: actions/checkout@v2
-      - name: Login to Heroku container registry
-      environment: pi-prod-gcp
+      - name: Login to Heroku container registry      
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: heroku container:login
