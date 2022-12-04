@@ -15,16 +15,6 @@ jobs:
       # Git checkout
       - name: Checkout
         uses: actions/checkout@v2
-
-      # Login to GCP
-      - uses: google-github-actions/setup-gcloud@v0.2.0
-        with:
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      # gcloud configure docker
-      - name: Configure Docker
-        run: gcloud auth configure-docker --quiet
         
       # instala dependências
       - name: Install Dependencies
@@ -44,6 +34,20 @@ jobs:
       - name: Push Docker image
         run: docker push $IMAGE_NAME
 
-      # deploy image
-      - name: Deploy Docker image
-        run: gcloud run deploy app --image $IMAGE_NAME --region us-central1 --memory 128Mi --min-instances 0 --max-instances 1 --platform managed --port 8000 --allow-unauthenticated
+  deploy: 
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to Heroku container registry
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:login
+      - name: Build and Push
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:push -a $IMAGE_NAME .
+      - name: release 
+        env:
+         HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+        run: heroku container:release -a $IMAGE_NAME . 
