@@ -26,13 +26,14 @@ jobs:
        #comppose 
       - name: Docker Compose
         run:  docker-compose up --build -d
+
+      - name: Teste
+        run: python manage.py test 
         # build image
       - name: Build Docker image
         run: docker build .
 
-      - name: Teste
-        run: python manage.py test
-
+   
       # push image to registry
      # - name: Push Docker image
     #    run: docker push af4e136f6c19
