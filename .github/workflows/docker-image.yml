@@ -30,7 +30,7 @@ jobs:
       - name: Build Docker image
         run: docker build .
 
-      -name: Teste
+      - name: Teste
         run: python manage.py test
 
       # push image to registry
