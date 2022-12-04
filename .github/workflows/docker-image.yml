@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  deploy:
+  build:
     name: Setup Gcloud Account
     runs-on: ubuntu-latest
     environment: pi-prod-gcp
