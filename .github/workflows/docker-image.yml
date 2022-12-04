@@ -1,47 +1,66 @@
 name: Deploy Heroku
-'on':
+
+on:
   push:
-    branches:
-      - master
+    branches: [master]
+
 jobs:
   deploy:
     - name: Setup Heroku Account
       runs-on: ubuntu-latest
       environment: pi-prod-gcp
-      env: null
-      HEROKU_API_KEY: '${{secrets.HEROKU_API_KEY}}'
-      IMAGE_NAME: imagem-docker
+      env:
+      HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+      IMAGE_NAME:
+        imagem-docker
+        # Git checkout
     - name: Checkout
-      uses: actions/checkout@v2
+      uses:
+        actions/checkout@v2
+
+        # Login to GCP
     - uses: google-github-actions/setup-gcloud@v0.2.0
       with:
-        service_account_key: '${{ secrets.GCP_CREDENTIALS }}'
-        project_id: '${{ secrets.GCP_PROJECT_ID }}'
+        service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+        # gcloud configure docker
     - name: Configure Docker
-      run: gcloud auth configure-docker --quiet
+      run:
+        gcloud auth configure-docker --quiet
+
+        # instala dependências
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
+      #comppose
     - name: Docker Compose
-      run: docker-compose up --build -d
+      run:
+        docker-compose up --build -d
+        # build image
     - name: Build Docker image
-      run: docker build -t $IMAGE_NAME .
+      run:
+        docker build -t $IMAGE_NAME .
+
+        # push image to registry
     - name: Push Docker image
       run: docker push $IMAGE_NAME
-      deploy: null
+
+      deploy:
       needs: build
       runs-on: ubuntu-latest
     - uses: actions/checkout@v2
     - name: Login to Heroku container registry
       env:
-        HEROKU_API_KEY: '${{secrets.HEROKU_API_KEY}}'
-      run: 'heroku container:login'
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+      run: heroku container:login
     - name: Build and Push
       env:
-        HEROKU_API_KEY: '${{secrets.HEROKU_API_KEY}}'
-      run: 'heroku container:push -a $IMAGE_NAME .'
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+      run: heroku container:push -a $IMAGE_NAME .
     - name: release
       env:
-        HEROKU_API_KEY: '${{secrets.HEROKU_API_KEY}}'
-      run: 'heroku container:release -a $IMAGE_NAME .'
+        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+      run: heroku container:release -a $IMAGE_NAME .
