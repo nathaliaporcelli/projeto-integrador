@@ -4,11 +4,12 @@ on:
   push:
     branches: [master]
 jobs:
-  build:  
+  build:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup Heroku Account      
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9]
     environment: pi-prod-gcp
     env:
       HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
