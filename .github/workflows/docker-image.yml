@@ -1,4 +1,4 @@
-name: Deploy GCP
+name: Deploy HEROKU
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Setup Gcloud Account
+    name: Setup 
     runs-on: ubuntu-latest
     environment: pi-prod-gcp
     #env:
@@ -28,7 +28,7 @@ jobs:
         run:  docker-compose up --build -d
         # build image
       - name: Build Docker image
-        run: docker build -t $IMAGE_NAME
+        run: docker build -t $IMAGE_NAME:latest
 
       # push image to registry
       - name: Push Docker image
