@@ -32,7 +32,7 @@ jobs:
 
       # push image to registry
       - name: Push Docker image
-        run: docker push img-docker
+        run: docker push
 
   deploy: 
     needs: build
