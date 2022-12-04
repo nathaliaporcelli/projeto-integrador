@@ -9,7 +9,7 @@ jobs:
     name: Setup Gcloud Account
     runs-on: ubuntu-latest
     environment: pi-prod-gcp
-    env:
+    #env:
       #IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app:latest
     steps:
       # Git checkout
