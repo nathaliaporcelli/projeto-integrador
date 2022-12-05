@@ -43,8 +43,7 @@ jobs:
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: heroku container:push web --app registry.heroku.com/pi-v3
-        #web registry.heroku.com/pi-v3
-        
+         
       - name: release 
         env:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
