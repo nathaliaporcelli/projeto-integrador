@@ -9,8 +9,7 @@ jobs:
     name: Setup 
     runs-on: ubuntu-latest
     environment: pi-prod-gcp
-    #env:
-      #IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/app:latest
+  
     steps:
       # Git checkout
       - name: Checkout
@@ -20,24 +19,16 @@ jobs:
       - name: Install Dependencies
         run: |
          python -m pip install --upgrade pip
-         pip install -r requirements.txt
-                
+         pip install -r requirements.txt                
         
        #comppose 
       - name: Docker Compose
         run:  docker-compose up --build -d
-     # - name: Teste
-      #  run: ./django_pi_v2 python manage.py test 
-      
+        
         # build image
       - name: Build Docker image
         run: docker build .
 
-   
-      # push image to registry
-     # - name: Push Docker image
-    #    run: docker push af4e136f6c19
-  
   deploy: 
     needs: build
     runs-on: ubuntu-latest
@@ -59,9 +50,6 @@ jobs:
          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
         run: heroku container:release web --app pi-v3
         #heroku container:release  web --app application-name
-
-      #  docker push registry.heroku.com/appname/web
-#heroku container:release web -a appname
 
 
 
