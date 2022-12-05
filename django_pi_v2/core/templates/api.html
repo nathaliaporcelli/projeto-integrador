@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Página de Busca{% endblock %}
+{% load bootstrap4 %}
+{% load static %}
+{% bootstrap_css %}
+
+
+{% block main %}
+<div class="row">
+    <div class="col">
+        <form action="{% url 'api' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">Acampamento</button>
+            {% endbuttons %}
+        </form>
+    </div>
+  </div>
+
+
+{% bootstrap_javascript jquery='full' %}
+{% endblock %}
+</div>

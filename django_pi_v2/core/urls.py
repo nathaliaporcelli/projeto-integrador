@@ -11,5 +11,6 @@ urlpatterns = [
     path('cad_esc_p2/<int:pk>', cad_esc_p2, name='cad_esc_p2'),
     path('cadastro_atividade/<int:pk>', cadastro_atividade, name='cadastro_atividade'),
     path('cadastro_atividade/apagar/<int:pk>', delete_skill, name='delete_skill'),
+    
 ]
 
